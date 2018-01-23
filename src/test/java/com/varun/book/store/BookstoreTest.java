@@ -2,20 +2,18 @@ package com.varun.book.store;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
 
-/**
- * Created by flazer on 23/1/2018.
- */
 public class BookstoreTest {
 
-    @Test
-    public void searchByTitle() {
+    @Test public void findsNothingWhenNoBookWithAMatchingTitleExists() {
         Bookstore store = new Bookstore();
-        String result = store.findByTitle("Fire and Fury");
-        assertEquals(
-            result,
-            "Fire and Fury"
-        );
+        store.addBook(new Book("Lord of the Rings"));
+
+        assertThat(
+            store.findByTitle("Fire and Fury"),
+            is(empty()));;
     }
 }
