@@ -2,8 +2,8 @@ package com.varun.book.store;
 
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 
@@ -48,7 +48,7 @@ public class BookstoreTest {
 
         assertThat(
             store.findByTitle("OF tHE"),
-            containsInAnyOrder(lord_of_the_rings, return_of_the_king)
+            is(asList(lord_of_the_rings, return_of_the_king))
         );
     }
 }
