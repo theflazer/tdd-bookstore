@@ -1,7 +1,10 @@
 package com.varun.book.store;
 
 public class Book {
-    public Book(String title) {
 
+    public String title;
+
+    public Book(String title) {
+        this.title = title;
     }
 }
