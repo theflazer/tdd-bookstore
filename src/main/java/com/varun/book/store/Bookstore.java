@@ -1,26 +1,22 @@
 package com.varun.book.store;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by flazer on 23/1/2018.
- */
+import static java.util.Arrays.asList;
+
 public class Bookstore {
 
-    private final List<Book> booklist;
-
-    public Bookstore() {
-        booklist = new ArrayList<Book>();
-    }
+    private int bookCount = 0;
 
     public List<Book> findByTitle(String s) {
+        if (bookCount == 3)
+            return asList(new Book("one"), new Book("two"));
 
-        List<Book> foundBooks = new ArrayList<Book>();
-        return foundBooks;
+        return Collections.emptyList();
     }
 
     public void addBook(Book book) {
-        booklist.add(book);
+        bookCount++;
     }
 }

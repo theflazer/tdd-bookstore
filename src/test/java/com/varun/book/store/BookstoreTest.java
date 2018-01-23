@@ -3,6 +3,7 @@ package com.varun.book.store;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 
@@ -33,5 +34,21 @@ public class BookstoreTest {
             is(2)
         );
 
+    }
+
+    @Test
+    public void actuallyFindAllBooksWithMatchingTitles() {
+        Bookstore store = new Bookstore();
+        Book lord_of_the_rings = new Book("Lord of the Rings");
+        Book the_hobbit = new Book("The Hobbit");
+        Book return_of_the_king = new Book("The Return of the King");
+        store.addBook(lord_of_the_rings);
+        store.addBook(the_hobbit);
+        store.addBook(return_of_the_king);
+
+        assertThat(
+            store.findByTitle("OF tHE"),
+            containsInAnyOrder(lord_of_the_rings, return_of_the_king)
+        );
     }
 }
