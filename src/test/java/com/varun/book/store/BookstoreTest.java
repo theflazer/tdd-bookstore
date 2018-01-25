@@ -2,12 +2,16 @@ package com.varun.book.store;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 
 public class BookstoreTest {
+
+    public static final Random rnd = new Random(System.currentTimeMillis());
 
     @Test
     public void findsNothingWhenNoBookWithAMatchingTitleExists() {
@@ -48,17 +52,45 @@ public class BookstoreTest {
     @Test
     public void findAllBooksThatWasPublishedWithinTheSpecifiedYearRange() {
         Bookstore store = new Bookstore();
-        Book toBeFoundBook1 = new Book("2001: A Space Odyssey", 2000);
-        Book toBeFoundBook2 = new Book("Harry Potter and the sorcerer's stone", 1999);
-        Book notToBeFoundBook = new Book("The Master Algorithm", 2015);
-        store.addBook(toBeFoundBook1);
-        store.addBook(toBeFoundBook2);
-        store.addBook(notToBeFoundBook);
+        Book _2001_a_space_oddyssey = new Book("2001: A Space Odyssey", 2000);
+        Book harry_potter = new Book("Harry Potter and the sorcerer's stone", 1999);
+        Book the_master_algorithm = new Book("The Master Algorithm", 2015);
+        store.addBook(_2001_a_space_oddyssey);
+        store.addBook(harry_potter);
+        store.addBook(the_master_algorithm);
 
         assertThat(
             store.findByPublicationYearBetween(1998, 2000),
-            is(asList(toBeFoundBook1, toBeFoundBook2))
+            is(asList(_2001_a_space_oddyssey, harry_potter))
         );
-
     }
+
+    @Test
+    public void bookFindingIsInclusive() {
+        int begin = 1950 + rnd.nextInt(50);
+        int end = begin + rnd.nextInt(20);
+
+        Bookstore store = new Bookstore();
+        Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
+        Book chamber_of_secrets = new Book("The Chamber of Secrets", begin);
+        Book prisoner_of_azkaban = new Book("The Prisoner of Azkaban", begin + 1);
+        Book goblet_of_fire = new Book("The Goblet of Fire", end - 1);
+        Book order_of_the_phoenix = new Book("The Order of the Phoenix", end);
+        Book half_blood_prince = new Book("The Half-Blood Prince", end + 1);
+
+        store.addBook(philosophers_stone);
+        store.addBook(goblet_of_fire);
+        store.addBook(chamber_of_secrets);
+        store.addBook(half_blood_prince);
+        store.addBook(prisoner_of_azkaban);
+        store.addBook(order_of_the_phoenix);
+
+        assertThat(
+            store.findByPublicationYearBetween(begin, end),
+            is(asList(philosophers_stone, chamber_of_secrets))
+        );
+    }
+
+
+
 }
