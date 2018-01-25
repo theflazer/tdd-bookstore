@@ -12,7 +12,7 @@ public class BookstoreTest {
     @Test
     public void findsNothingWhenNoBookWithAMatchingTitleExists() {
         Bookstore store = new Bookstore();
-        store.addBook(new Book("Lord of the Rings"));
+        store.addBook(new Book("Lord of the Rings", 2001));
 
         assertThat(
             store.findByTitle("Fire and Fury"),
@@ -20,28 +20,11 @@ public class BookstoreTest {
     }
 
     @Test
-    public void findsAllBooksWithMatchingTitles() {
+    public void findAllBooksWithMatchingTitles() {
         Bookstore store = new Bookstore();
-        Book book = new Book("Harry Potter and the Chamber of Secrets");
-        Book book1 = new Book("Harry potter and the Prisoner of Azkaban");
-        Book book2 = new Book("When Harry met sally");
-        store.addBook(book);
-        store.addBook(book1);
-        store.addBook(book2);
-
-        assertThat(
-            store.findByTitle("potter harry").size(),
-            is(2)
-        );
-
-    }
-
-    @Test
-    public void actuallyFindAllBooksWithMatchingTitles() {
-        Bookstore store = new Bookstore();
-        Book lord_of_the_rings = new Book("Lord of the Rings");
-        Book the_hobbit = new Book("The Hobbit");
-        Book return_of_the_king = new Book("The Return of the King");
+        Book lord_of_the_rings = new Book("Lord of the Rings", 2001);
+        Book the_hobbit = new Book("The Hobbit", 2001);
+        Book return_of_the_king = new Book("The Return of the King", 2001);
         store.addBook(lord_of_the_rings);
         store.addBook(the_hobbit);
         store.addBook(return_of_the_king);
@@ -53,13 +36,12 @@ public class BookstoreTest {
     }
 
     @Test
-    public void findsNoBooksSinceQueryContainsMoreWordsThanBookTitle() {
-        Bookstore bookstore = new Bookstore();
-        bookstore.addBook(new Book("FIRE"));
-        assertThat(
-            bookstore.findByTitle("fire fire"),
-            is(empty())
-        );
-    }
+    public void findsNothingWhenNoBookWasPublishedWithinTheSpecifiedYearRange() {
+        Bookstore store = new Bookstore();
+        store.addBook(new Book("2001: A Space Odyssey", 2001));
 
+        assertThat(
+            store.findByPublicationYearBetween(1990, 2000),
+            is(empty()));
+    }
 }

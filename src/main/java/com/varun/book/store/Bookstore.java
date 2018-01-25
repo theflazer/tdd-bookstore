@@ -1,34 +1,26 @@
 package com.varun.book.store;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Bookstore {
 
-    private List<Book> booklist = new ArrayList<Book>();
+    private final List<Book> books = new ArrayList<Book>();
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
 
     public List<Book> findByTitle(String s) {
         List<Book> foundBooks = new ArrayList<>();
-        Set<String> queryWords = Arrays.asList(s.split(" "))
-                .stream().map(n -> n.toLowerCase())
-                .collect(Collectors.toSet());
-
-        for (Book book: booklist) {
-            Set<String> bookTitleWords = Arrays.asList(book.title.split(" "))
-                    .stream().map(n -> n.toLowerCase())
-                    .collect(Collectors.toSet());
-
-            if(bookTitleWords.containsAll(queryWords)){
+        for (Book book : books)
+            if (book.title.toLowerCase().contains(s.toLowerCase()))
                 foundBooks.add(book);
-            }
-        }
+
         return foundBooks;
     }
 
-    public void addBook(Book book) {
-        booklist.add(book);
+    public List<Book> findByPublicationYearBetween(int y1, int y2) {
+        return null;
     }
 }
