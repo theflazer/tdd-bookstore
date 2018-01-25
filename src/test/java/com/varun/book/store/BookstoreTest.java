@@ -44,4 +44,21 @@ public class BookstoreTest {
             store.findByPublicationYearBetween(1990, 2000),
             is(empty()));
     }
+
+    @Test
+    public void findAllBooksThatWasPublishedWithinTheSpecifiedYearRange() {
+        Bookstore store = new Bookstore();
+        Book toBeFoundBook1 = new Book("2001: A Space Odyssey", 2000);
+        Book toBeFoundBook2 = new Book("Harry Potter and the sorcerer's stone", 1999);
+        Book notToBeFoundBook = new Book("The Master Algorithm", 2015);
+        store.addBook(toBeFoundBook1);
+        store.addBook(toBeFoundBook2);
+        store.addBook(notToBeFoundBook);
+
+        assertThat(
+            store.findByPublicationYearBetween(1998, 2000),
+            is(asList(toBeFoundBook1, toBeFoundBook2))
+        );
+
+    }
 }

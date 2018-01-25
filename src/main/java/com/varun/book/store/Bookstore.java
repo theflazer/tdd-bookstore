@@ -21,6 +21,6 @@ public class Bookstore {
     }
 
     public List<Book> findByPublicationYearBetween(int y1, int y2) {
-        return null;
+        return new ArrayList<>();
     }
 }
