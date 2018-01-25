@@ -1,22 +1,38 @@
 package com.varun.book.store;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 
 public class Bookstore {
 
-    private int bookCount = 0;
+//    private int bookCount = 0;
+    private List<Book> booklist = new ArrayList<Book>();
+
 
     public List<Book> findByTitle(String s) {
-        if (bookCount == 3)
-            return asList(new Book("one"), new Book("two"));
+        List<Book> foundBooks = new ArrayList<Book>();
+        Set<String> titleWords = new HashSet<String>();
 
-        return Collections.emptyList();
+        for (String word: s.split(" ")) {
+            titleWords.add(word.toLowerCase());
+        }
+
+        for (Book book: booklist) {
+            Set<String> bookTitleWords = new HashSet<String>();
+
+            for (String word: book.title.split(" ")) {
+                bookTitleWords.add(word.toLowerCase());
+            }
+
+            if(bookTitleWords.containsAll(titleWords)){
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
     }
 
     public void addBook(Book book) {
-        bookCount++;
+        booklist.add(book);
     }
 }
