@@ -1,6 +1,7 @@
 package com.varun.book.store;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -11,21 +12,17 @@ public class Bookstore {
 
 
     public List<Book> findByTitle(String s) {
-        List<Book> foundBooks = new ArrayList<Book>();
-        Set<String> titleWords = new HashSet<String>();
-
-        for (String word: s.split(" ")) {
-            titleWords.add(word.toLowerCase());
-        }
+        List<Book> foundBooks = new ArrayList<>();
+        Set<String> queryWords = Arrays.asList(s.split(" "))
+                .stream().map(n -> n.toLowerCase())
+                .collect(Collectors.toSet());
 
         for (Book book: booklist) {
-            Set<String> bookTitleWords = new HashSet<String>();
+            Set<String> bookTitleWords = Arrays.asList(book.title.split(" "))
+                    .stream().map(n -> n.toLowerCase())
+                    .collect(Collectors.toSet());
 
-            for (String word: book.title.split(" ")) {
-                bookTitleWords.add(word.toLowerCase());
-            }
-
-            if(bookTitleWords.containsAll(titleWords)){
+            if(bookTitleWords.containsAll(queryWords)){
                 foundBooks.add(book);
             }
         }
