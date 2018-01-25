@@ -51,4 +51,15 @@ public class BookstoreTest {
             is(asList(lord_of_the_rings, return_of_the_king))
         );
     }
+
+    @Test
+    public void findsNoBooksSinceQueryContainsMoreWordsThanBookTitle() {
+        Bookstore bookstore = new Bookstore();
+        bookstore.addBook(new Book("FIRE"));
+        assertThat(
+            bookstore.findByTitle("fire fire"),
+            is(empty())
+        );
+    }
+
 }
