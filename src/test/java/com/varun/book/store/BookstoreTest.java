@@ -87,7 +87,7 @@ public class BookstoreTest {
 
         assertThat(
             store.findByPublicationYearBetween(begin, end),
-            is(asList(philosophers_stone, chamber_of_secrets))
+            is(asList(chamber_of_secrets, prisoner_of_azkaban, goblet_of_fire, order_of_the_phoenix))
         );
     }
 
