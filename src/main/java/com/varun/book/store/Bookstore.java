@@ -1,8 +1,6 @@
 package com.varun.book.store;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Bookstore {
 
@@ -22,9 +20,16 @@ public class Bookstore {
     }
 
     public List<Book> findByPublicationYearBetween(int y1, int y2) {
-        if (books.size() > 1)
-            return Arrays.asList(books.get(0), books.get(1));
+        List<Book> foundBooks = new ArrayList<>();
+        for (Book book: books) {
+            if (book.publicationYear >= y1 && book.publicationYear <= y2) {
+                foundBooks.add(book);
+            }
+        }
+        return foundBooks;
+    }
 
-        return new ArrayList<>();
+    public List<Book> findByPublicationYearBetweenAndTitle(int begin, int end, String query) {
+        return null;
     }
 }

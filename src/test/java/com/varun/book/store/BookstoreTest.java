@@ -87,8 +87,33 @@ public class BookstoreTest {
 
         assertThat(
             store.findByPublicationYearBetween(begin, end),
-            is(asList(chamber_of_secrets, prisoner_of_azkaban, goblet_of_fire, order_of_the_phoenix))
+            is(asList(goblet_of_fire, chamber_of_secrets, prisoner_of_azkaban, order_of_the_phoenix))
         );
+    }
+
+    @Test
+    public void findBooksThatWasPublishedDuringASpecifiedRangeAndHasMatchingTitle() {
+        int begin = 1950 + rnd.nextInt(70);
+        int end = begin + rnd.nextInt(30);
+
+        Bookstore store = new Bookstore();
+        Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
+        Book chamber_of_secrets = new Book("The Chamber of Some Secrets", begin);
+        Book prisoner_of_azkaban = new Book("The Prisoner of Azkaban", begin + 1);
+        Book goblet_of_fire = new Book("The Goblet of some Fire", end);
+        Book order_of_the_phoenix = new Book("The Order of Some Phoenix", end+ 1);
+
+        store.addBook(philosophers_stone);
+        store.addBook(chamber_of_secrets);
+        store.addBook(prisoner_of_azkaban);
+        store.addBook(goblet_of_fire);
+        store.addBook(order_of_the_phoenix);
+
+        assertThat(
+            store.findByPublicationYearBetweenAndTitle(begin, end, "of some"),
+            is(asList(chamber_of_secrets, goblet_of_fire))
+        );
+
     }
 
 
