@@ -95,12 +95,13 @@ public class BookstoreTest {
     public void findBooksThatWasPublishedDuringASpecifiedRangeAndHasMatchingTitle() {
         int begin = 1950 + rnd.nextInt(70);
         int end = begin + rnd.nextInt(30);
+        String identifier = Integer.toString(rnd.nextInt(20));
 
         Bookstore store = new Bookstore();
         Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
-        Book chamber_of_secrets = new Book("The Chamber of Some Secrets", begin);
-        Book prisoner_of_azkaban = new Book("The Prisoner of Azkaban", begin + 1);
-        Book goblet_of_fire = new Book("The Goblet of some Fire", end);
+        Book chamber_of_secrets = new Book("The Chamber of "+identifier+" Secrets", begin);
+        Book prisoner_of_azkaban = new Book("The Prisoner from "+identifier, begin + 1);
+        Book goblet_of_fire = new Book("The Goblet of "+identifier+" Fires", end);
         Book order_of_the_phoenix = new Book("The Order of Some Phoenix", end+ 1);
 
         store.addBook(philosophers_stone);
@@ -110,7 +111,7 @@ public class BookstoreTest {
         store.addBook(order_of_the_phoenix);
 
         assertThat(
-            store.findByPublicationYearBetweenAndTitle(begin, end, "of some"),
+            store.findByPublicationYearBetweenAndTitle(begin, end, "of "+identifier),
             is(asList(chamber_of_secrets, goblet_of_fire))
         );
 
