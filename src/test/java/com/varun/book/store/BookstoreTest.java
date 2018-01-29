@@ -95,28 +95,76 @@ public class BookstoreTest {
     public void findBooksThatWasPublishedDuringASpecifiedRangeAndHasMatchingTitle() {
         int begin = 1950 + rnd.nextInt(70);
         int end = begin + rnd.nextInt(30);
-        String identifier = Integer.toString(rnd.nextInt(20));
+        String identifier = Integer.toString(rnd.nextInt(10000));
 
         Bookstore store = new Bookstore();
-        Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
-        Book chamber_of_secrets = new Book("The Chamber of "+identifier+" Secrets", begin);
-        Book prisoner_of_azkaban = new Book("The Prisoner from "+identifier, begin + 1);
-        Book goblet_of_fire = new Book("The Goblet of "+identifier+" Fires", end);
-        Book order_of_the_phoenix = new Book("The Order of "+identifier+" Phoenix", end+ 1);
+
+        Book game_of_thrones = new Book("A Game of Thrones", begin - 1);
+        Book philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
+        Book clash_of_kings = new Book("A Clash of Kings", begin);
+        Book chamber_of_secrets = new Book("The Chamber of " + identifier + " Secrets", begin);
+        Book storm_of_swords = new Book("A Storm of Swords", begin + 1);
+        Book prisoner_of_azkaban = new Book("The Prisoner from " + identifier, begin + 1);
+        Book feast_for_crows = new Book("A Feast for Crows", end);
+        Book goblet_of_fire = new Book("The Goblet of " + identifier + " Fires", end);
+        Book dance_with_dragons = new Book("A Dance with Dragons", end + 1);
+        Book order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
 
         store.addBook(philosophers_stone);
+        store.addBook(game_of_thrones);
         store.addBook(chamber_of_secrets);
+        store.addBook(clash_of_kings);
         store.addBook(prisoner_of_azkaban);
+        store.addBook(storm_of_swords);
         store.addBook(goblet_of_fire);
+        store.addBook(feast_for_crows);
         store.addBook(order_of_the_phoenix);
+        store.addBook(dance_with_dragons);
 
         assertThat(
-            store.findByPublicationYearBetweenAndTitle(begin, end, "of "+identifier),
-            is(asList(chamber_of_secrets, goblet_of_fire))
+            store.findByPublicationYearBetweenAndTitle(begin, end, identifier),
+            is(asList(chamber_of_secrets, prisoner_of_azkaban, goblet_of_fire))
         );
-
     }
 
+    @Test
+    public void findBooksThatWerePublishedDuringASpecifiedRangeOrHasMatchingTitle() {
+        int begin = 1950 + rnd.nextInt(70);
+        int end = begin + rnd.nextInt(30);
+        String identifier = Integer.toString(rnd.nextInt(10000));
 
+        Bookstore store = new Bookstore();
 
+        Book game_of_thrones = new Book("A Game of Thrones", begin - 1);
+        Book philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
+        Book clash_of_kings = new Book("A Clash of Kings", begin);
+        Book chamber_of_secrets = new Book("The Chamber of " + identifier + " Secrets", begin);
+        Book storm_of_swords = new Book("A Storm of Swords", begin + 1);
+        Book feast_for_crows = new Book("A Feast for Crows", end);
+        Book goblet_of_fire = new Book("The Goblet of " + identifier + " Fires", end);
+        Book dance_with_dragons = new Book("A Dance with Dragons", end + 1);
+        Book order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
+
+        store.addBook(philosophers_stone);
+        store.addBook(game_of_thrones);
+        store.addBook(chamber_of_secrets);
+        store.addBook(clash_of_kings);
+        store.addBook(storm_of_swords);
+        store.addBook(goblet_of_fire);
+        store.addBook(feast_for_crows);
+        store.addBook(order_of_the_phoenix);
+        store.addBook(dance_with_dragons);
+
+        assertThat(
+            store.findByPublicationYearBetweenOrTitle(begin, end, identifier),
+            is(asList(
+                philosophers_stone,
+                clash_of_kings,
+                chamber_of_secrets,
+                storm_of_swords,
+                feast_for_crows,
+                goblet_of_fire,
+                order_of_the_phoenix))
+        );
+    }
 }
