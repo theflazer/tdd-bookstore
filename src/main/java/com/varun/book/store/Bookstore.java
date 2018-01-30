@@ -39,6 +39,12 @@ public class Bookstore {
     }
 
     public List<Book> findByPublicationYearBetweenOrTitle(int begin, int end, String query) {
-        return null;
+        List<Book> foundBooks = new ArrayList<>();
+        for (Book book : books)
+            if (book.publicationYear >= begin && book.publicationYear <= end || book.title.toLowerCase().contains(query.toLowerCase()))
+                foundBooks.add(book);
+
+        return foundBooks;
+
     }
 }

@@ -146,12 +146,12 @@ public class BookstoreTest {
         Book order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
 
         store.addBook(philosophers_stone);
+        store.addBook(clash_of_kings);
         store.addBook(game_of_thrones);
         store.addBook(chamber_of_secrets);
-        store.addBook(clash_of_kings);
         store.addBook(storm_of_swords);
-        store.addBook(goblet_of_fire);
         store.addBook(feast_for_crows);
+        store.addBook(goblet_of_fire);
         store.addBook(order_of_the_phoenix);
         store.addBook(dance_with_dragons);
 
