@@ -17,6 +17,16 @@ public class BookstoreTest {
     private int begin;
     private int end;
     private String identifier;
+    private Book game_of_thrones;
+    private Book philosophers_stone;
+    private Book clash_of_kings;
+    private Book chamber_of_secrets;
+    private Book storm_of_swords;
+    private Book prisoner_of_azkaban;
+    private Book feast_for_crows;
+    private Book goblet_of_fire;
+    private Book dance_with_dragons;
+    private Book order_of_the_phoenix;
 
     @Before
     public void setupTests() {
@@ -24,6 +34,16 @@ public class BookstoreTest {
         begin = 1950 + rnd.nextInt(70);
         end = begin + rnd.nextInt(30);
         identifier = Integer.toString(rnd.nextInt(10000));
+        game_of_thrones = new Book("A Game of Thrones", begin - 1);
+        philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
+        clash_of_kings = new Book("A Clash of Kings", begin);
+        chamber_of_secrets = new Book("The Chamber of " + identifier + " Secrets", begin);
+        storm_of_swords = new Book("A Storm of Swords", begin + 1);
+        prisoner_of_azkaban = new Book("The Prisoner from " + identifier, begin + 1);
+        feast_for_crows = new Book("A Feast for Crows", end);
+        goblet_of_fire = new Book("The Goblet of " + identifier + " Fires", end);
+        dance_with_dragons = new Book("A Dance with Dragons", end + 1);
+        order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
     }
 
     @Test
@@ -76,8 +96,6 @@ public class BookstoreTest {
 
     @Test
     public void bookFindingIsInclusive() {
-        int begin = 1950 + rnd.nextInt(50);
-        int end = begin + rnd.nextInt(20);
 
         Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
         Book chamber_of_secrets = new Book("The Chamber of Secrets", begin);
@@ -101,25 +119,14 @@ public class BookstoreTest {
 
     @Test
     public void findBooksThatWasPublishedDuringASpecifiedRangeAndHasMatchingTitle() {
-        Book game_of_thrones = new Book("A Game of Thrones", begin - 1);
-        Book philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
-        Book clash_of_kings = new Book("A Clash of Kings", begin);
-        Book chamber_of_secrets = new Book("The Chamber of " + identifier + " Secrets", begin);
-        Book storm_of_swords = new Book("A Storm of Swords", begin + 1);
-        Book prisoner_of_azkaban = new Book("The Prisoner from " + identifier, begin + 1);
-        Book feast_for_crows = new Book("A Feast for Crows", end);
-        Book goblet_of_fire = new Book("The Goblet of " + identifier + " Fires", end);
-        Book dance_with_dragons = new Book("A Dance with Dragons", end + 1);
-        Book order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
-
         store.addBook(philosophers_stone);
+        store.addBook(clash_of_kings);
         store.addBook(game_of_thrones);
         store.addBook(chamber_of_secrets);
-        store.addBook(clash_of_kings);
-        store.addBook(prisoner_of_azkaban);
         store.addBook(storm_of_swords);
-        store.addBook(goblet_of_fire);
         store.addBook(feast_for_crows);
+        store.addBook(prisoner_of_azkaban);
+        store.addBook(goblet_of_fire);
         store.addBook(order_of_the_phoenix);
         store.addBook(dance_with_dragons);
 
@@ -131,16 +138,6 @@ public class BookstoreTest {
 
     @Test
     public void findBooksThatWerePublishedDuringASpecifiedRangeOrHasMatchingTitle() {
-        Book game_of_thrones = new Book("A Game of Thrones", begin - 1);
-        Book philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
-        Book clash_of_kings = new Book("A Clash of Kings", begin);
-        Book chamber_of_secrets = new Book("The Chamber of " + identifier + " Secrets", begin);
-        Book storm_of_swords = new Book("A Storm of Swords", begin + 1);
-        Book feast_for_crows = new Book("A Feast for Crows", end);
-        Book goblet_of_fire = new Book("The Goblet of " + identifier + " Fires", end);
-        Book dance_with_dragons = new Book("A Dance with Dragons", end + 1);
-        Book order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
-
         store.addBook(philosophers_stone);
         store.addBook(clash_of_kings);
         store.addBook(game_of_thrones);
@@ -150,7 +147,6 @@ public class BookstoreTest {
         store.addBook(goblet_of_fire);
         store.addBook(order_of_the_phoenix);
         store.addBook(dance_with_dragons);
-
         assertThat(
             store.findByPublicationYearBetweenOrTitle(begin, end, identifier),
             is(asList(
