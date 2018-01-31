@@ -1,5 +1,6 @@
 package com.varun.book.store;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Random;
@@ -12,10 +13,21 @@ import static org.hamcrest.Matchers.is;
 public class BookstoreTest {
 
     public static final Random rnd = new Random(System.currentTimeMillis());
+    private Bookstore store;
+    private int begin;
+    private int end;
+    private String identifier;
+
+    @Before
+    public void setupTests() {
+        store = new Bookstore();
+        begin = 1950 + rnd.nextInt(70);
+        end = begin + rnd.nextInt(30);
+        identifier = Integer.toString(rnd.nextInt(10000));
+    }
 
     @Test
     public void findsNothingWhenNoBookWithAMatchingTitleExists() {
-        Bookstore store = new Bookstore();
         store.addBook(new Book("Lord of the Rings", 2001));
 
         assertThat(
@@ -25,7 +37,6 @@ public class BookstoreTest {
 
     @Test
     public void findAllBooksWithMatchingTitles() {
-        Bookstore store = new Bookstore();
         Book lord_of_the_rings = new Book("Lord of the Rings", 2001);
         Book the_hobbit = new Book("The Hobbit", 2001);
         Book return_of_the_king = new Book("The Return of the King", 2001);
@@ -41,7 +52,6 @@ public class BookstoreTest {
 
     @Test
     public void findsNothingWhenNoBookWasPublishedWithinTheSpecifiedYearRange() {
-        Bookstore store = new Bookstore();
         store.addBook(new Book("2001: A Space Odyssey", 2001));
 
         assertThat(
@@ -51,7 +61,6 @@ public class BookstoreTest {
 
     @Test
     public void findAllBooksThatWasPublishedWithinTheSpecifiedYearRange() {
-        Bookstore store = new Bookstore();
         Book _2001_a_space_oddyssey = new Book("2001: A Space Odyssey", 2000);
         Book harry_potter = new Book("Harry Potter and the sorcerer's stone", 1999);
         Book the_master_algorithm = new Book("The Master Algorithm", 2015);
@@ -70,7 +79,6 @@ public class BookstoreTest {
         int begin = 1950 + rnd.nextInt(50);
         int end = begin + rnd.nextInt(20);
 
-        Bookstore store = new Bookstore();
         Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
         Book chamber_of_secrets = new Book("The Chamber of Secrets", begin);
         Book prisoner_of_azkaban = new Book("The Prisoner of Azkaban", begin + 1);
@@ -93,12 +101,6 @@ public class BookstoreTest {
 
     @Test
     public void findBooksThatWasPublishedDuringASpecifiedRangeAndHasMatchingTitle() {
-        int begin = 1950 + rnd.nextInt(70);
-        int end = begin + rnd.nextInt(30);
-        String identifier = Integer.toString(rnd.nextInt(10000));
-
-        Bookstore store = new Bookstore();
-
         Book game_of_thrones = new Book("A Game of Thrones", begin - 1);
         Book philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
         Book clash_of_kings = new Book("A Clash of Kings", begin);
@@ -129,12 +131,6 @@ public class BookstoreTest {
 
     @Test
     public void findBooksThatWerePublishedDuringASpecifiedRangeOrHasMatchingTitle() {
-        int begin = 1950 + rnd.nextInt(70);
-        int end = begin + rnd.nextInt(30);
-        String identifier = Integer.toString(rnd.nextInt(10000));
-
-        Bookstore store = new Bookstore();
-
         Book game_of_thrones = new Book("A Game of Thrones", begin - 1);
         Book philosophers_stone = new Book("The Philosopher's Stone " + identifier, begin - 1);
         Book clash_of_kings = new Book("A Clash of Kings", begin);
