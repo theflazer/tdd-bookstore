@@ -27,6 +27,7 @@ public class BookstoreTest {
     private Book goblet_of_fire;
     private Book dance_with_dragons;
     private Book order_of_the_phoenix;
+    private Book half_blood_prince;
 
     @Before
     public void setupTests() {
@@ -44,6 +45,8 @@ public class BookstoreTest {
         goblet_of_fire = new Book("The Goblet of " + identifier + " Fires", end);
         dance_with_dragons = new Book("A Dance with Dragons", end + 1);
         order_of_the_phoenix = new Book("The Order of " + identifier + " Phoenix", end + 1);
+        half_blood_prince = new Book("The Half-Blood Prince", end + 1);
+
     }
 
     @Test
@@ -96,24 +99,16 @@ public class BookstoreTest {
 
     @Test
     public void bookFindingIsInclusive() {
-
-        Book philosophers_stone = new Book("The Philosopher's Stone", begin - 1);
-        Book chamber_of_secrets = new Book("The Chamber of Secrets", begin);
-        Book prisoner_of_azkaban = new Book("The Prisoner of Azkaban", begin + 1);
-        Book goblet_of_fire = new Book("The Goblet of Fire", end - 1);
-        Book order_of_the_phoenix = new Book("The Order of the Phoenix", end);
-        Book half_blood_prince = new Book("The Half-Blood Prince", end + 1);
-
         store.addBook(philosophers_stone);
         store.addBook(goblet_of_fire);
         store.addBook(chamber_of_secrets);
         store.addBook(half_blood_prince);
-        store.addBook(prisoner_of_azkaban);
+        store.addBook(feast_for_crows);
         store.addBook(order_of_the_phoenix);
 
         assertThat(
             store.findByPublicationYearBetween(begin, end),
-            is(asList(goblet_of_fire, chamber_of_secrets, prisoner_of_azkaban, order_of_the_phoenix))
+            is(asList(goblet_of_fire, chamber_of_secrets, feast_for_crows))
         );
     }
 
